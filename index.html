@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Officer Cheat Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Stardos+Stencil:wght@400;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EAE1C6;
+    --paper-deep:#D6C69B;
+    --paper-card:#F1EAD3;
+    --ink:#26211B;
+    --ink-soft:#524A3D;
+    --stamp-red:#9B2B2B;
+    --steel:#585E62;
+    --steel-dark:#383D40;
+    --carbon:#333F4C;
+    --brass:#A67C3D;
+    --ok-green:#3E5C3A;
+    --warn-amber:#8C5A16;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Special Elite', 'Courier Prime', monospace;
+    position:relative;
+    min-height:100vh;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    background-image:
+      radial-gradient(rgba(0,0,0,0.035) 1px, transparent 1px),
+      radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 2px 3px;
+    opacity:0.6;
+  }
+
+  .wrap{
+    position:relative;
+    z-index:1;
+    max-width:860px;
+    margin:0 auto;
+    padding:34px 24px 60px;
+  }
+
+  .folder-tab{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--paper-deep);
+    border:1px solid rgba(0,0,0,0.25);
+    border-bottom:none;
+    padding:8px 22px;
+    border-radius:10px 10px 0 0;
+    font-family:'Courier Prime', monospace;
+    font-size:12.5px;
+    letter-spacing:1.5px;
+    color:var(--ink-soft);
+    margin-left:18px;
+  }
+  .folder-tab .rivet{
+    width:6px; height:6px; border-radius:50%;
+    background:var(--brass);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.3);
+  }
+
+  .cover{
+    position:relative;
+    background:var(--paper-card);
+    border:1px solid rgba(0,0,0,0.28);
+    border-radius:2px 10px 10px 10px;
+    padding:38px 34px 30px;
+    box-shadow:
+      0 1px 0 rgba(0,0,0,0.15),
+      0 10px 0 -4px var(--paper-deep),
+      0 14px 0 -4px rgba(0,0,0,0.12),
+      0 22px 30px -14px rgba(0,0,0,0.35);
+    overflow:visible;
+  }
+
+  .cuff-hero{
+    position:absolute;
+    top:-46px;
+    right:34px;
+    width:150px;
+    height:auto;
+    transform:rotate(-8deg);
+    filter: drop-shadow(0 6px 6px rgba(0,0,0,0.35));
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:13px;
+    letter-spacing:2px;
+    color:var(--ink-soft);
+    margin:0 0 6px;
+  }
+
+  h1{
+    font-family:'Stardos Stencil', 'Courier Prime', monospace;
+    font-weight:700;
+    font-size:40px;
+    letter-spacing:2px;
+    margin:0 0 14px;
+    color:var(--ink);
+    line-height:1.05;
+  }
+
+  .meta-line{
+    font-family:'Courier Prime', monospace;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    border-top:1px dashed rgba(0,0,0,0.3);
+    border-bottom:1px dashed rgba(0,0,0,0.3);
+    padding:10px 0;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px 26px;
+  }
+  .meta-line span b{ color:var(--ink); font-weight:700; }
+
+  .stamp{
+    position:absolute;
+    right:38px;
+    bottom:20px;
+    font-family:'Stardos Stencil', monospace;
+    font-weight:700;
+    font-size:17px;
+    letter-spacing:3px;
+    color:var(--stamp-red);
+    border:3px solid var(--stamp-red);
+    border-radius:6px;
+    padding:6px 14px;
+    transform:rotate(-9deg);
+    opacity:0.82;
+    mix-blend-mode:multiply;
+  }
+
+  /* ---------- controls ---------- */
+  .controls{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    align-items:center;
+    margin:26px 0 6px;
+    padding-left:6px;
+  }
+  .mode-btn{
+    font-family:'Courier Prime', monospace;
+    font-size:12.5px;
+    letter-spacing:1px;
+    background:var(--paper-card);
+    border:1px solid rgba(0,0,0,0.3);
+    border-radius:3px;
+    padding:8px 16px;
+    color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .mode-btn.active{
+    background:var(--ink);
+    color:var(--paper-card);
+    border-color:var(--ink);
+  }
+  .mode-hint{
+    font-family:'Courier Prime', monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- chain divider (signature motif, used once) ---------- */
+  .chain-divider{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin:30px 0 22px;
+  }
+  .chain-divider .rule{
+    flex:1;
+    height:0;
+    border-top:2px solid rgba(0,0,0,0.18);
+  }
+
+  /* ---------- quiz box ---------- */
+  .quiz-card{
+    background:var(--ink);
+    color:var(--paper-card);
+    border-radius:4px;
+    padding:22px 24px;
+    margin:26px 0 10px;
+    position:relative;
+  }
+  .quiz-card::before{
+    content:"QUICK QUIZ";
+    position:absolute; top:-11px; left:20px;
+    background:var(--stamp-red); color:var(--paper-card);
+    font-family:'Stardos Stencil', monospace; font-size:11px; letter-spacing:2px;
+    padding:3px 12px; border-radius:20px;
+  }
+  .quiz-cats{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .quiz-cat-btn{
+    font-family:'Courier Prime', monospace;
+    font-size:11px; letter-spacing:0.5px;
+    background:transparent; color:#a89e82;
+    border:1px solid rgba(255,255,255,0.25);
+    border-radius:20px; padding:5px 12px; cursor:pointer;
+  }
+  .quiz-cat-btn.active{ background:var(--brass); color:var(--ink); border-color:var(--brass); }
+
+  .quiz-question{
+    font-family:'Special Elite', monospace;
+    font-size:15px;
+    color:#d9d2b8;
+    margin:4px 0 14px;
+  }
+  .quiz-question b{
+    font-family:'Courier Prime', monospace;
+    color:var(--brass);
+    font-size:18px;
+  }
+  .quiz-options{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+  .quiz-opt{
+    font-family:'Special Elite', monospace;
+    font-size:13px;
+    text-align:left;
+    background:rgba(255,255,255,0.05);
+    color:var(--paper-card);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:4px;
+    padding:10px 12px;
+    cursor:pointer;
+  }
+  .quiz-opt:hover{ background:rgba(255,255,255,0.1); }
+  .quiz-opt.correct{ background:var(--ok-green); border-color:var(--ok-green); color:#e7f0e5; }
+  .quiz-opt.wrong{ background:var(--stamp-red); border-color:var(--stamp-red); color:#f6e2e2; }
+  .quiz-opt.disabled{ pointer-events:none; opacity:0.75; }
+
+  .quiz-btns{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .quiz-btn{
+    font-family:'Courier Prime', monospace;
+    font-size:12px; letter-spacing:1px;
+    border:1px solid rgba(255,255,255,0.35);
+    background:transparent; color:var(--paper-card);
+    border-radius:3px; padding:8px 14px; cursor:pointer;
+  }
+  .quiz-btn.primary{ background:var(--brass); color:var(--ink); border-color:var(--brass); }
+  .quiz-score{ font-family:'Courier Prime', monospace; font-size:11.5px; color:#9a927c; }
+
+  /* ---------- case pages ---------- */
+  .case-page{
+    background:var(--paper-card);
+    border:1px solid rgba(0,0,0,0.25);
+    border-radius:3px;
+    padding:22px 24px 24px;
+    margin-bottom:22px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.1), 0 6px 12px -6px rgba(0,0,0,0.3);
+    position:relative;
+  }
+  .case-page::before{
+    content:"";
+    position:absolute; top:11px; left:11px;
+    width:8px; height:8px; border-radius:50%;
+    background:var(--paper);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.45);
+  }
+  .case-page h2{
+    font-family:'Stardos Stencil', monospace;
+    font-size:19px;
+    letter-spacing:1.5px;
+    color:var(--ink);
+    margin:0 0 4px 20px;
+  }
+  .case-page h3{
+    font-family:'Stardos Stencil', monospace;
+    font-size:14px;
+    letter-spacing:1px;
+    color:var(--ink-soft);
+    margin:20px 0 8px 20px;
+  }
+  .case-page .sub{
+    font-family:'Courier Prime', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin:0 0 14px 20px;
+  }
+  .case-page .format-note{
+    font-family:'Courier Prime', monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px 20px;
+  }
+  .case-page .format-note b{ color:var(--ink); }
+
+  table{ width:100%; border-collapse:collapse; font-size:13.5px; }
+  th, td{ padding:8px 10px; text-align:left; border-bottom:1px solid rgba(0,0,0,0.15); }
+  th{
+    font-family:'Courier Prime', monospace;
+    font-size:11px; letter-spacing:1px; text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:2px solid rgba(0,0,0,0.3);
+  }
+  td.code{
+    font-family:'Courier Prime', monospace;
+    font-weight:700;
+    color:var(--stamp-red);
+    white-space:nowrap;
+    width:140px;
+  }
+  tr:last-child td{ border-bottom:none; }
+
+  td.reveal-cell{ cursor:pointer; position:relative; }
+  .practice-on td.reveal-cell:not(.revealed){
+    color:transparent;
+    background:repeating-linear-gradient(135deg, var(--paper-deep), var(--paper-deep) 5px, #c3b283 5px, #c3b283 10px);
+    border-radius:3px;
+  }
+  .practice-on td.reveal-cell:not(.revealed)::after{
+    content:"tap to reveal";
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px; color:var(--ink-soft);
+  }
+
+  .radio-box{
+    background:var(--ink);
+    color:#b7d9c1;
+    font-family:'Courier Prime', monospace;
+    font-size:13px;
+    padding:14px 16px;
+    border-radius:3px;
+    white-space:pre-wrap;
+    line-height:1.7;
+    margin:0 20px 16px;
+  }
+  .radio-box .tag{ color:var(--brass); }
+
+  .template-card{
+    margin:0 20px 16px;
+    border:2px dashed var(--brass);
+    border-radius:4px;
+    padding:14px 16px;
+    background:rgba(166,124,61,0.08);
+  }
+  .template-row{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px;
+    font-family:'Courier Prime', monospace;
+    font-size:13px;
+    margin-bottom:10px;
+  }
+  .template-row:last-child{ margin-bottom:0; }
+  .blank{
+    display:inline-flex;
+    align-items:center;
+    background:var(--paper-card);
+    border:1px solid rgba(0,0,0,0.3);
+    border-radius:3px;
+    padding:4px 10px;
+    color:var(--ink);
+    font-weight:700;
+  }
+  .blank-label{
+    font-size:10px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-top:2px;
+  }
+  .blank-wrap{ display:flex; flex-direction:column; align-items:flex-start; }
+  .plus{ color:var(--ink-soft); font-weight:700; }
+  .template-example{
+    font-family:'Special Elite', monospace;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-top:12px;
+    padding-top:10px;
+    border-top:1px dashed rgba(0,0,0,0.25);
+  }
+  .template-example b{ color:var(--ink); }
+
+  .miranda-box{
+    border:2px solid var(--stamp-red);
+    border-radius:4px;
+    padding:14px 16px;
+    margin:0 20px 4px;
+    font-size:14px;
+    line-height:1.6;
+    color:var(--ink);
+  }
+  .miranda-box b{ color:var(--stamp-red); }
+
+  .footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:40px;
+    padding-top:16px;
+    border-top:1px dashed rgba(0,0,0,0.3);
+    font-family:'Courier Prime', monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    flex-wrap:wrap;
+  }
+
+  @media (max-width:560px){
+    h1{ font-size:30px; }
+    .cuff-hero{ width:100px; top:-30px; right:18px; }
+    .stamp{ font-size:12px; padding:4px 10px; right:20px; bottom:14px; }
+    td.code{ width:auto; }
+    .quiz-options{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="folder-tab">
+    <span class="rivet"></span> STATE OF SAN ANDREAS &nbsp;·&nbsp; FIELD REFERENCE
+  </div>
+
+  <div class="cover">
+    <svg class="cuff-hero" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="52" cy="70" r="34" fill="none" stroke="#585E62" stroke-width="11"/>
+      <circle cx="52" cy="70" r="34" fill="none" stroke="#26211B" stroke-width="11" stroke-opacity="0.18"/>
+      <rect x="80" y="60" width="30" height="20" rx="4" fill="#4B5155"/>
+      <path d="M110 68 L150 50" stroke="#4B5155" stroke-width="8" stroke-linecap="round"/>
+      <path d="M150 50 L162 70" stroke="#4B5155" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="150" cy="46" r="16" fill="none" stroke="#585E62" stroke-width="11" stroke-dasharray="76 100"/>
+      <circle cx="52" cy="70" r="5" fill="#A67C3D"/>
+      <circle cx="150" cy="46" r="4" fill="#A67C3D"/>
+    </svg>
+
+    <p class="eyebrow">DOSSIER NO. SA-CHEAT-01</p>
+    <h1>OFFICER CHEAT SHEET</h1>
+    <div class="meta-line">
+      <span>AGENCIES: <b>SASP &middot; LSPD &middot; LSSD</b></span>
+      <span>DATE: <b>07 / 26 / 2026</b></span>
+      <span>USE: <b>FIELD &amp; EXAM PREP</b></span>
+    </div>
+    <div class="stamp">KEEP ON YOU</div>
+  </div>
+
+  <div class="controls">
+    <button class="mode-btn" id="practiceBtn" onclick="togglePractice()">PRACTICE MODE: OFF</button>
+    <span class="mode-hint" id="modeHint">codes shown normally &mdash; click to hide meanings until tapped</span>
+  </div>
+
+  <div class="quiz-card">
+    <div class="quiz-cats" id="quizCats"></div>
+    <div class="quiz-question">what does <b id="quizCode">10-4</b> mean?</div>
+    <div class="quiz-options" id="quizOptions"></div>
+    <div class="quiz-btns">
+      <button class="quiz-btn primary" id="quizNextBtn" onclick="nextQuiz()">NEXT QUESTION &rarr;</button>
+      <span class="quiz-score" id="quizScore">score: 0 / 0</span>
+    </div>
+  </div>
+
+  <div class="chain-divider">
+    <svg viewBox="0 0 90 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="height:18px;">
+      <ellipse cx="12" cy="10" rx="9" ry="6" fill="none" stroke="#585E62" stroke-width="4"/>
+      <ellipse cx="26" cy="10" rx="9" ry="6" fill="none" stroke="#585E62" stroke-width="4"/>
+      <ellipse cx="40" cy="10" rx="9" ry="6" fill="none" stroke="#585E62" stroke-width="4"/>
+    </svg>
+    <div class="rule"></div>
+  </div>
+
+  <div id="cheatRoot">
+
+    <div class="case-page">
+      <h2>Ten-codes</h2>
+      <p class="sub">full radio shorthand reference</p>
+      <table id="tenCodeTable"></table>
+    </div>
+
+    <div class="case-page">
+      <h2>Radio communication</h2>
+      <p class="sub">sample live traffic</p>
+
+      <h3 style="margin-top:0;">Standard traffic stop</h3>
+      <div class="radio-box"><span class="tag">[UNIT]</span> Dispatch, 71-Lincoln-666 requesting a 10-35 on Vespucci Blvd, 10-60 black sedan, 2 occupants.
+<span class="tag">[DISPATCH]</span> 10-4, copy traffic stop Vespucci Blvd.</div>
+
+      <h3>Example updating radio traffic</h3>
+      <div class="radio-box"><span class="tag">[UNIT]</span> Dispatch, for the last 10-35 situation on Vespucci Blvd, it's now changing into active 10-57 (pursuit). Requesting 10-78 (backup) on my 10-20 (location). Suspect is now heading to (street or realtime location).
+<span class="tag">[DETAILS]</span> "Suspect is now heading north on Vespucci Blvd, taking right on T section, heading west on San Andreas Ave."</div>
+
+      <h3>Update call structure</h3>
+      <p class="format-note">Keep every update in this order so dispatch and nearby units can follow without asking twice:</p>
+      <div class="template-card">
+        <div class="template-row">
+          <div class="blank-wrap"><span class="blank">action</span><span class="blank-label">heading / turning / stopping</span></div>
+          <span class="plus">+</span>
+          <div class="blank-wrap"><span class="blank">direction</span><span class="blank-label">north / south / east / west</span></div>
+          <span class="plus">+</span>
+          <div class="blank-wrap"><span class="blank">street name</span><span class="blank-label">road or route</span></div>
+          <span class="plus">+</span>
+          <div class="blank-wrap"><span class="blank">extra info (optional)</span><span class="blank-label">landmark, traffic, suspect description</span></div>
+        </div>
+        <div class="template-example">
+          <b>Filled example:</b> "heading" + "north" + "Vespucci Blvd" + "passing the gas station, suspect in a red hoodie" &rarr;<br>
+          <i>"Suspect heading north on Vespucci Blvd, passing the gas station, suspect wearing a red hoodie."</i>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-page">
+      <h2>Callsign structure</h2>
+      <p class="sub">how to identify yourself over the radio, by agency</p>
+
+      <h3 style="margin-top:0;">SASP</h3>
+      <p class="format-note">Format: <b>[Basic / Interceptor / Motorcycle Division] [Phonetic Letter] [Badge Number]</b> &mdash; HC uses <b>BOSS-XX</b>, Air uses <b>HAWK-XX</b>.</p>
+      <table>
+        <tr><th>Callsign</th><th>Assignment</th></tr>
+        <tr><td class="code">BOSS-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HC (Chief / Command)</td></tr>
+        <tr><td class="code">DAVID-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Basic Unit</td></tr>
+        <tr><td class="code">HOTEL-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Interceptor</td></tr>
+        <tr><td class="code">VICTOR-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Motorcycle</td></tr>
+        <tr><td class="code">HAWK-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Air</td></tr>
+      </table>
+
+      <h3>LSPD</h3>
+      <p class="format-note">Format: <b>[Division No.] [Phonetic Letter] [Badge Number]</b> &mdash; solo unit is <b>XX-LINCOLN-XX</b>, partnered is <b>XX-ADAM-XX</b>. HC, SWAT, and CID use fixed prefixes.</p>
+      <table>
+        <tr><th>Callsign</th><th>Assignment</th></tr>
+        <tr><td class="code">FRANK-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HC (Chief / Command)</td></tr>
+        <tr><td class="code">XX-LINCOLN-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Basic Unit &mdash; 1 LEO (solo)</td></tr>
+        <tr><td class="code">XX-ADAM-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Basic Unit &mdash; 2 LEO (partnered)</td></tr>
+        <tr><td class="code">XX-VIPER-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HSIU</td></tr>
+        <tr><td class="code">XX-MARY-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Motorcycle</td></tr>
+        <tr><td class="code">BLAZE-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">SWAT</td></tr>
+        <tr><td class="code">DARK-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">CID</td></tr>
+        <tr><td class="code">AIR-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">ASD (Air Support)</td></tr>
+      </table>
+
+      <h3>LSSD</h3>
+      <p class="format-note">Format: <b>[Division No.] [Phonetic Letter] [Badge Number]</b> &mdash; solo unit is <b>XX-KING-XX</b>, partnered is <b>XX-ROBERT-XX</b>. HC, Motorcycle, HSIU, SEB, Detective, and ASD use fixed prefixes.</p>
+      <table>
+        <tr><th>Callsign</th><th>Assignment</th></tr>
+        <tr><td class="code">MARSHAL-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HC (Chief / Command)</td></tr>
+        <tr><td class="code">XX-KING-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Basic Unit &mdash; 1 LEO (solo)</td></tr>
+        <tr><td class="code">XX-ROBERT-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Basic Unit &mdash; 2 LEO (partnered)</td></tr>
+        <tr><td class="code">HYENA-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Motorcycle</td></tr>
+        <tr><td class="code">SONIC-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HSIU</td></tr>
+        <tr><td class="code">SIERRA-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">SEB</td></tr>
+        <tr><td class="code">CASPER-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Detective</td></tr>
+        <tr><td class="code">GRIFFIN-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">ASD (Air Support)</td></tr>
+      </table>
+    </div>
+
+    <div class="case-page">
+      <h2>IC &mdash; identity codes</h2>
+      <p class="sub">used over radio when describing a person</p>
+      <table>
+        <tr><th>Code</th><th>Meaning</th></tr>
+        <tr><td class="code">IC1</td><td class="reveal-cell" onclick="toggleReveal(this)">White</td></tr>
+        <tr><td class="code">IC2</td><td class="reveal-cell" onclick="toggleReveal(this)">Black</td></tr>
+        <tr><td class="code">IC3</td><td class="reveal-cell" onclick="toggleReveal(this)">Latino</td></tr>
+        <tr><td class="code">IC4</td><td class="reveal-cell" onclick="toggleReveal(this)">Middle Eastern</td></tr>
+        <tr><td class="code">IC5</td><td class="reveal-cell" onclick="toggleReveal(this)">Asian</td></tr>
+        <tr><td class="code">IC6</td><td class="reveal-cell" onclick="toggleReveal(this)">Unknown Ethnicity</td></tr>
+      </table>
+    </div>
+
+    <div class="case-page">
+      <h2>Important &mdash; response priority</h2>
+      <p class="sub">how urgently to respond to a call</p>
+      <table>
+        <tr><th>Code</th><th>Meaning</th></tr>
+        <tr><td class="code">Code 1</td><td class="reveal-cell" onclick="toggleReveal(this)">Routine Call: No Lights / No Sirens</td></tr>
+        <tr><td class="code">Code 2</td><td class="reveal-cell" onclick="toggleReveal(this)">Routine Call: Lights On, Airhorn at Intersections</td></tr>
+        <tr><td class="code">Code 3</td><td class="reveal-cell" onclick="toggleReveal(this)">Emergency Response (Lights and Sirens)</td></tr>
+        <tr><td class="code">Code 4</td><td class="reveal-cell" onclick="toggleReveal(this)">All Clear</td></tr>
+        <tr><td class="code">Code 5</td><td class="reveal-cell" onclick="toggleReveal(this)">Investigating the Area</td></tr>
+      </table>
+    </div>
+
+    <div class="case-page">
+      <h2>Miranda rights</h2>
+      <p class="sub">read word for word, every arrest</p>
+      <div class="miranda-box">
+        <b>Say exactly:</b> "You have the right to remain silent. Anything you say can and will be used against you in a court of law. You have the right to an attorney. If you cannot afford one, one will be provided for you. Do you understand these rights as I have read them to you?"
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span>FIELD REFERENCE &mdash; FOR TRAINING &amp; PERSONAL USE ONLY.</span>
+    <span>GENERATED 07/26/2026</span>
+  </div>
+
+</div>
+
+<script>
+const tenCodes = [
+  {code:'10-1', meaning:'Regroup / Meet at Location'},
+  {code:'10-2', meaning:'Good Signal'},
+  {code:'10-3', meaning:'Stop Transmitting / Clear the Radio!'},
+  {code:'10-4', meaning:'Affirmative / Solid Copy'},
+  {code:'10-7', meaning:'Not in Service'},
+  {code:'10-8', meaning:'Going Back on Service'},
+  {code:'10-9', meaning:'Please Repeat'},
+  {code:'10-11', meaning:'Discharge of Firearms'},
+  {code:'10-12', meaning:'Reporting Status / Stand-by'},
+  {code:'10-13', meaning:'Armed Civilian'},
+  {code:'10-20', meaning:'Requesting Location / Position'},
+  {code:'10-21', meaning:'Report Your Status'},
+  {code:'10-23', meaning:'Arrived on Scene'},
+  {code:'10-29', meaning:'Check for Warrants'},
+  {code:'10-31', meaning:'Crime in Progress'},
+  {code:'10-31A', meaning:'Burglary (House Robbery)'},
+  {code:'10-31B', meaning:'Store Robbery'},
+  {code:'10-32', meaning:'Armed Suspect'},
+  {code:'10-35', meaning:'Stopping a Vehicle (Traffic Stop)'},
+  {code:'10-38', meaning:'Felony Stop'},
+  {code:'10-41', meaning:'On Duty'},
+  {code:'10-42', meaning:'Off Duty'},
+  {code:'10-47', meaning:'Injured Civilian'},
+  {code:'10-50', meaning:'Traffic Accident'},
+  {code:'10-52', meaning:'Ambulance Required / Medical Assistance'},
+  {code:'10-55', meaning:'Illegal Race in Progress'},
+  {code:'10-57', meaning:'Hot Pursuit Situation'},
+  {code:'10-60', meaning:'Vehicle Description'},
+  {code:'10-66', meaning:'Active Shooting'},
+  {code:'10-76', meaning:'En Route / Responding'},
+  {code:'10-77', meaning:'Need Assistance (Non-Emergency)'},
+  {code:'10-78', meaning:'Need Assistance'},
+  {code:'10-88', meaning:'Suspicious Hand-off'},
+  {code:'10-90', meaning:'Bank Robbery in Progress'},
+  {code:'10-95', meaning:'Suspect in Custody'},
+  {code:'10-99A', meaning:'Officer Down'},
+  {code:'10-99B', meaning:'Medic Down'}
+];
+
+const icCodes = [
+  {code:'IC1', meaning:'White'},
+  {code:'IC2', meaning:'Black'},
+  {code:'IC3', meaning:'Latino'},
+  {code:'IC4', meaning:'Middle Eastern'},
+  {code:'IC5', meaning:'Asian'},
+  {code:'IC6', meaning:'Unknown Ethnicity'}
+];
+
+const responseCodes = [
+  {code:'Code 1', meaning:'Routine Call: No Lights / No Sirens'},
+  {code:'Code 2', meaning:'Routine Call: Lights On, Airhorn at Intersections'},
+  {code:'Code 3', meaning:'Emergency Response (Lights and Sirens)'},
+  {code:'Code 4', meaning:'All Clear'},
+  {code:'Code 5', meaning:'Investigating the Area'}
+];
+
+const callsignCodes = [
+  {code:'BOSS-XX', meaning:'SASP HC (Chief / Command)'},
+  {code:'DAVID-XX', meaning:'SASP Basic Unit'},
+  {code:'HOTEL-XX', meaning:'SASP Interceptor'},
+  {code:'VICTOR-XX', meaning:'SASP Motorcycle'},
+  {code:'HAWK-XX', meaning:'SASP Air'},
+  {code:'FRANK-XX', meaning:'LSPD HC (Chief / Command)'},
+  {code:'XX-LINCOLN-XX', meaning:'LSPD Basic Unit, solo'},
+  {code:'XX-ADAM-XX', meaning:'LSPD Basic Unit, partnered'},
+  {code:'XX-VIPER-XX', meaning:'LSPD HSIU'},
+  {code:'XX-MARY-XX', meaning:'LSPD Motorcycle'},
+  {code:'BLAZE-XX', meaning:'LSPD SWAT'},
+  {code:'DARK-XX', meaning:'LSPD CID'},
+  {code:'AIR-XX', meaning:'LSPD ASD (Air Support)'},
+  {code:'MARSHAL-XX', meaning:'LSSD HC (Chief / Command)'},
+  {code:'XX-KING-XX', meaning:'LSSD Basic Unit, solo'},
+  {code:'XX-ROBERT-XX', meaning:'LSSD Basic Unit, partnered'},
+  {code:'HYENA-XX', meaning:'LSSD Motorcycle'},
+  {code:'SONIC-XX', meaning:'LSSD HSIU'},
+  {code:'SIERRA-XX', meaning:'LSSD SEB'},
+  {code:'CASPER-XX', meaning:'LSSD Detective'},
+  {code:'GRIFFIN-XX', meaning:'LSSD ASD (Air Support)'}
+];
+
+const categories = {
+  all:      {label:'ALL',       bank: [].concat(tenCodes, icCodes, responseCodes, callsignCodes)},
+  ten:      {label:'TEN-CODES', bank: tenCodes},
+  ic:       {label:'IC CODES',  bank: icCodes},
+  response: {label:'RESPONSE',  bank: responseCodes},
+  callsign: {label:'CALLSIGNS', bank: callsignCodes}
+};
+
+function buildTenCodeTable(){
+  const table = document.getElementById('tenCodeTable');
+  let html = '<tr><th>Code</th><th>Meaning</th></tr>';
+  tenCodes.forEach(row => {
+    html += `<tr><td class="code">${row.code}</td><td class="reveal-cell" onclick="toggleReveal(this)">${row.meaning}</td></tr>`;
+  });
+  table.innerHTML = html;
+}
+buildTenCodeTable();
+
+function togglePractice(){
+  const btn = document.getElementById('practiceBtn');
+  const hint = document.getElementById('modeHint');
+  const root = document.getElementById('cheatRoot');
+  const on = root.classList.toggle('practice-on');
+  btn.classList.toggle('active', on);
+  btn.textContent = on ? 'PRACTICE MODE: ON' : 'PRACTICE MODE: OFF';
+  hint.textContent = on
+    ? 'meanings hidden \u2014 click any row to check yourself'
+    : 'codes shown normally \u2014 click to hide meanings until tapped';
+}
+function toggleReveal(cell){
+  cell.classList.toggle('revealed');
+}
+
+/* ---------- quiz ---------- */
+let currentCat = 'all';
+let quizIndex = -1;
+let quizAnswered = false;
+let scoreCorrect = 0;
+let scoreTotal = 0;
+
+function buildCatButtons(){
+  const wrap = document.getElementById('quizCats');
+  wrap.innerHTML = '';
+  Object.keys(categories).forEach(key => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-cat-btn' + (key === currentCat ? ' active' : '');
+    btn.textContent = categories[key].label;
+    btn.onclick = () => {
+      currentCat = key;
+      buildCatButtons();
+      pickQuizQuestion();
+    };
+    wrap.appendChild(btn);
+  });
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function pickQuizQuestion(){
+  const bank = categories[currentCat].bank;
+  let next;
+  do { next = Math.floor(Math.random() * bank.length); } while (next === quizIndex && bank.length > 1);
+  quizIndex = next;
+  quizAnswered = false;
+
+  const correct = bank[quizIndex];
+  document.getElementById('quizCode').textContent = correct.code;
+
+  const distractorPool = bank.filter((_, i) => i !== quizIndex);
+  const distractors = shuffle(distractorPool).slice(0, 3).map(d => d.meaning);
+  const options = shuffle([correct.meaning].concat(distractors));
+
+  const optWrap = document.getElementById('quizOptions');
+  optWrap.innerHTML = '';
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+    btn.onclick = () => selectAnswer(btn, opt, correct.meaning);
+    optWrap.appendChild(btn);
+  });
+}
+
+function selectAnswer(btn, chosen, correctMeaning){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  scoreTotal++;
+  const allOpts = document.querySelectorAll('.quiz-opt');
+  allOpts.forEach(o => {
+    o.classList.add('disabled');
+    if(o.textContent === correctMeaning) o.classList.add('correct');
+  });
+  if(chosen === correctMeaning){
+    scoreCorrect++;
+  } else {
+    btn.classList.add('wrong');
+  }
+  document.getElementById('quizScore').textContent = 'score: ' + scoreCorrect + ' / ' + scoreTotal;
+}
+
+function nextQuiz(){
+  pickQuizQuestion();
+}
+
+buildCatButtons();
+pickQuizQuestion();
+</script>
+</body>
+</html>
