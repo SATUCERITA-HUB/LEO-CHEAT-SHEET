@@ -449,7 +449,7 @@
     <p class="eyebrow">DOSSIER NO. SA-CHEAT-01</p>
     <h1>OFFICER CHEAT SHEET</h1>
     <div class="meta-line">
-      <span>AGENCIES: <b>SASP &middot; LSPD &middot; LSSD</b></span>
+      <span>AGENCIES: <b>SASP &middot; LSPD &middot; BCSO</b></span>
       <span>DATE: <b>07 / 26 / 2026</b></span>
       <span>USE: <b>FIELD &amp; EXAM PREP</b></span>
     </div>
@@ -529,37 +529,37 @@
         <tr><th>Callsign</th><th>Assignment</th></tr>
         <tr><td class="code">BOSS-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HC (Chief / Command)</td></tr>
         <tr><td class="code">DAVID-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Basic Unit</td></tr>
-        <tr><td class="code">HOTEL-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Interceptor</td></tr>
+        <tr><td class="code">HENRY-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Interceptor</td></tr>
         <tr><td class="code">VICTOR-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Motorcycle</td></tr>
-        <tr><td class="code">HAWK-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Air</td></tr>
+        <tr><td class="code">FALCON</td><td class="reveal-cell" onclick="toggleReveal(this)">Air</td></tr>
       </table>
 
       <h3>LSPD</h3>
       <p class="format-note">Format: <b>[Division No.] [Phonetic Letter] [Badge Number]</b> &mdash; solo unit is <b>XX-LINCOLN-XX</b>, partnered is <b>XX-ADAM-XX</b>. HC, SWAT, and CID use fixed prefixes.</p>
       <table>
         <tr><th>Callsign</th><th>Assignment</th></tr>
-        <tr><td class="code">FRANK-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HC (Chief / Command)</td></tr>
+        <tr><td class="code">STAFF-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HC (Chief / Command)</td></tr>
         <tr><td class="code">XX-LINCOLN-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Basic Unit &mdash; 1 LEO (solo)</td></tr>
         <tr><td class="code">XX-ADAM-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Basic Unit &mdash; 2 LEO (partnered)</td></tr>
-        <tr><td class="code">XX-VIPER-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HSIU</td></tr>
+        <tr><td class="code">XX-HOTEL-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HSIU</td></tr>
         <tr><td class="code">XX-MARY-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Motorcycle</td></tr>
-        <tr><td class="code">BLAZE-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">SWAT</td></tr>
-        <tr><td class="code">DARK-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">CID</td></tr>
+        <tr><td class="code">GOLIATH-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">SWAT</td></tr>
+        <tr><td class="code">CHARLIE-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">CID</td></tr>
         <tr><td class="code">AIR-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">ASD (Air Support)</td></tr>
       </table>
 
-      <h3>LSSD</h3>
+      <h3>BCSO</h3>
       <p class="format-note">Format: <b>[Division No.] [Phonetic Letter] [Badge Number]</b> &mdash; solo unit is <b>XX-KING-XX</b>, partnered is <b>XX-ROBERT-XX</b>. HC, Motorcycle, HSIU, SEB, Detective, and ASD use fixed prefixes.</p>
       <table>
         <tr><th>Callsign</th><th>Assignment</th></tr>
-        <tr><td class="code">MARSHAL-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HC (Chief / Command)</td></tr>
+        <tr><td class="code">SHERIFF-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HC (Chief / Command)</td></tr>
         <tr><td class="code">XX-KING-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Basic Unit &mdash; 1 LEO (solo)</td></tr>
         <tr><td class="code">XX-ROBERT-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Basic Unit &mdash; 2 LEO (partnered)</td></tr>
-        <tr><td class="code">HYENA-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Motorcycle</td></tr>
-        <tr><td class="code">SONIC-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HSIU</td></tr>
+        <tr><td class="code">PUMA-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Motorcycle</td></tr>
+        <tr><td class="code">VIPER-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">HSIU</td></tr>
         <tr><td class="code">SIERRA-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">SEB</td></tr>
-        <tr><td class="code">CASPER-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Detective</td></tr>
-        <tr><td class="code">GRIFFIN-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">ASD (Air Support)</td></tr>
+        <tr><td class="code">DELTA-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">Detective</td></tr>
+        <tr><td class="code">AERO-XX</td><td class="reveal-cell" onclick="toggleReveal(this)">ASD (Air Support)</td></tr>
       </table>
     </div>
 
@@ -679,14 +679,14 @@ const callsignCodes = [
   {code:'BLAZE-XX', meaning:'LSPD SWAT'},
   {code:'DARK-XX', meaning:'LSPD CID'},
   {code:'AIR-XX', meaning:'LSPD ASD (Air Support)'},
-  {code:'MARSHAL-XX', meaning:'LSSD HC (Chief / Command)'},
-  {code:'XX-KING-XX', meaning:'LSSD Basic Unit, solo'},
-  {code:'XX-ROBERT-XX', meaning:'LSSD Basic Unit, partnered'},
-  {code:'HYENA-XX', meaning:'LSSD Motorcycle'},
-  {code:'SONIC-XX', meaning:'LSSD HSIU'},
-  {code:'SIERRA-XX', meaning:'LSSD SEB'},
-  {code:'CASPER-XX', meaning:'LSSD Detective'},
-  {code:'GRIFFIN-XX', meaning:'LSSD ASD (Air Support)'}
+  {code:'MARSHAL-XX', meaning:'BCSO HC (Chief / Command)'},
+  {code:'XX-KING-XX', meaning:'BCSO Basic Unit, solo'},
+  {code:'XX-ROBERT-XX', meaning:'BCSO Basic Unit, partnered'},
+  {code:'HYENA-XX', meaning:'BCSO Motorcycle'},
+  {code:'SONIC-XX', meaning:'BCSO HSIU'},
+  {code:'SIERRA-XX', meaning:'BCSO SEB'},
+  {code:'CASPER-XX', meaning:'BCSO Detective'},
+  {code:'GRIFFIN-XX', meaning:'BCSO ASD (Air Support)'}
 ];
 
 const categories = {
